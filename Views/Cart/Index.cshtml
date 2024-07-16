@@ -1,0 +1,31 @@
+﻿@model ASP.NET.Models.Cart
+
+<div class="container mt-4">
+    <h1>Cart</h1>
+    @if (Model.Products.Any())
+    {
+        <ul class="list-group">
+            @foreach (var product in Model.Products)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col">
+                            <h5>@product.Name</h5>
+                            <p>@product.Description</p>
+                            <p>Price: @product.Price</p>
+                        </div>
+                        <div class="col text-end">
+                            <a asp-controller="Cart" asp-action="RemoveFromCart" asp-route-productId="@product.ProductID" class="btn btn-danger">Remove from Cart</a>
+                        </div>
+                    </div>
+
+                </li>
+            }
+        </ul>
+        <h4>Total Price: @Model.TotalPrice</h4>
+    }
+    else
+    {
+        <p>Your cart is empty.</p>
+    }
+</div>

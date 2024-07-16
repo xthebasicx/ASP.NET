@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ASP.NET.Models.Product>
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Key Game</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td><img src="@Url.Content(product.Image)" class="card-img-top" style="max-width: 200px; max-height: 100px;"></td>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td>@product.Price</td>
+                <td>@product.KeyGame</td>
+                <td>
+                    <a class="btn btn-warning"
+                       asp-controller="Admin"
+                       asp-action="Edit"
+                       asp-route-id="@product.ProductID">Edit</a>
+                </td>
+                <td>
+                    <form asp-controller="Admin" asp-action="Delete" asp-route-id="@product.ProductID" onsubmit="return confirm('Are you sure you want to delete this product?');" method="post">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

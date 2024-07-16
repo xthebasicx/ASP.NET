@@ -1,0 +1,20 @@
+﻿@model ASP.NET.Models.Product
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="@Url.Content(Model.Image)" class="img-fluid" alt="@Model.Name">
+        </div>
+        <div class="col-md-6">
+            <div>
+                <h1>@Model.Name</h1>
+                <br />
+                <p><strong>Description:</strong> @Model.Description</p>
+                <p><strong>Price:</strong> @Model.Price</p>
+            </div>
+            <div>
+                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.ProductID" class="btn btn-dark">Add to Cart</a>
+            </div>
+        </div>
+    </div>
+</div>

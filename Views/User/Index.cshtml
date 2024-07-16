@@ -1,0 +1,8 @@
+﻿@model ASP.NET.Models.User
+
+<p>@Model.Username</p>
+<p>@Model.Balance</p>
+
+<form asp-action="Logout" asp-controller="User" method="post">
+    <button type="submit" class="btn btn-dark">Logout</button>
+</form>
