@@ -2,7 +2,7 @@
 using ASP.NET.Context;
 using ASP.NET.Models;
 using Microsoft.EntityFrameworkCore;
-
+using System.Security.Claims;
 
 namespace ASP.NET.Controllers
 {
@@ -17,8 +17,8 @@ namespace ASP.NET.Controllers
 
         public IActionResult Index()
         {
-            var username = User.Identity.Name;
-            var user = _db.Users.Include(u => u.Cart).ThenInclude(c => c.Products).FirstOrDefault(u => u.Username == username);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = _db.Users.Include(u => u.Cart).ThenInclude(c => c.Products).FirstOrDefault(u => u.UserID.ToString() == userId);
 
             if (user?.Cart != null)
             {
@@ -30,8 +30,8 @@ namespace ASP.NET.Controllers
 
         public IActionResult AddToCart(int id)
         {
-            var username = User.Identity.Name;
-            var user = _db.Users.Include(u => u.Cart).ThenInclude(c => c.Products).FirstOrDefault(u => u.Username == username);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = _db.Users.Include(u => u.Cart).ThenInclude(c => c.Products).FirstOrDefault(u => u.UserID.ToString() == userId);
 
             if (user != null)
             {
@@ -54,10 +54,11 @@ namespace ASP.NET.Controllers
 
             return RedirectToAction("Index");
         }
+
         public IActionResult RemoveFromCart(int productId)
         {
-            var username = User.Identity.Name;
-            var user = _db.Users.Include(u => u.Cart).ThenInclude(c => c.Products).FirstOrDefault(u => u.Username == username);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = _db.Users.Include(u => u.Cart).ThenInclude(c => c.Products).FirstOrDefault(u => u.UserID.ToString() == userId);
 
             if (user?.Cart != null)
             {
@@ -71,6 +72,5 @@ namespace ASP.NET.Controllers
 
             return RedirectToAction("Index");
         }
-
     }
 }

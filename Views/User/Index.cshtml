@@ -3,6 +3,10 @@
 <p>@Model.Username</p>
 <p>@Model.Balance</p>
 
+<form asp-action="" asp-controller="TopUp">
+    <button type="submit" class="btn btn-dark mb-2">Top Up</button>
+</form>
+
 <form asp-action="Logout" asp-controller="User" method="post">
     <button type="submit" class="btn btn-dark">Logout</button>
 </form>

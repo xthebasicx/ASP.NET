@@ -21,10 +21,8 @@ namespace ASP.NET.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var username = User.Identity.Name;
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-                var user = _db.Users.FirstOrDefault(u => u.Username == username);
+                var user = _db.Users.FirstOrDefault(u => u.UserID.ToString() == userId);
 
                 if (user != null)
                 {
@@ -56,10 +54,10 @@ namespace ASP.NET.Controllers
                 if (existingUser != null)
                 {
                     var claims = new List<Claim>
-                {
-                new Claim(ClaimTypes.Name, existingUser.Username)
-
-                };
+                    {
+                        new Claim(ClaimTypes.Name, existingUser.Username),
+                        new Claim(ClaimTypes.NameIdentifier, existingUser.UserID.ToString())
+                    };
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var authProperties = new AuthenticationProperties
@@ -69,8 +67,8 @@ namespace ASP.NET.Controllers
 
                     await HttpContext.SignInAsync(
                         CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(claimsIdentity),
-                        authProperties);
+                        new ClaimsPrincipal(claimsIdentity), authProperties);
+
                     return RedirectToAction("Index");
                 }
 
@@ -79,6 +77,7 @@ namespace ASP.NET.Controllers
 
             return View(user);
         }
+
         public IActionResult Register()
         {
             return View();
@@ -96,6 +95,7 @@ namespace ASP.NET.Controllers
             }
             return View(user);
         }
+
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

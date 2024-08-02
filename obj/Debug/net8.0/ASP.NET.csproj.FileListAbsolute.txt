@@ -134,3 +134,4 @@ D:\Basic\ASP.NET\obj\Debug\net8.0\refint\ASP.NET.dll
 D:\Basic\ASP.NET\obj\Debug\net8.0\ASP.NET.pdb
 D:\Basic\ASP.NET\obj\Debug\net8.0\ASP.NET.genruntimeconfig.cache
 D:\Basic\ASP.NET\obj\Debug\net8.0\ref\ASP.NET.dll
+D:\Basic\ASP.NET\obj\Debug\net8.0\ASP.NET.sourcelink.json

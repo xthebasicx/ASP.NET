@@ -14,5 +14,6 @@ namespace ASP.NET.Models
         public string Role { get; set; } = "User";
         public decimal Balance { get; set; } = 0;
         public Cart? Cart { get; set; }
+        public ICollection<TopUp>? TopUps { get; set; }
     }
 }
